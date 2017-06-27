@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.bluedotinnovation.bdpointxamarindemo.bdpointxamarindemo">
+	<uses-sdk android:minSdkVersion="10" />
+	<application android:allowBackup="true" android:icon="@mipmap/icon" android:label="@string/app_name">
+		
+		<service android:name="au.com.bluedot.point.beacon.BlueDotBLEService" android:exported="false" />
+		<service android:name="au.com.bluedot.point.net.engine.BlueDotPointService" android:exported="false" />
+		<service android:name="au.com.bluedot.point.net.engine.DataJobScheduler" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" />
+	</application>
+	<uses-permission android:name="android.permission.INTERNET" />
+	<!-- Required for Beacons integration -->
+	<!-- Required for Google Maps -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	<uses-permission android:name="android.permission.BLUETOOTH" />
+	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+	<!--App to be visible only to GPS/network location enabled devices-->
+	<uses-feature android:name="android.hardware.location.gps" android:required="true" />
+	<uses-feature android:name="android.hardware.location.network" android:required="true" />
+</manifest>
