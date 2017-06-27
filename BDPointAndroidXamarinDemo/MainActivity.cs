@@ -7,6 +7,10 @@ using AU.Com.Bluedot.Point.Net.Engine;
 using System;
 using System.Collections.Generic;
 
+/*
+ * Xamarin Activity implementing Bluedot Point SDK service interfaces(generated through the binding project) using JNI
+ */
+
 namespace BDPointAndroidXamarinDemo
 {
     [Activity(Label = "BDPointXamarinDemo", MainLauncher = true, Icon = "@mipmap/icon")]
