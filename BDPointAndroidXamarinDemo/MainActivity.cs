@@ -68,6 +68,7 @@ namespace BDPointAndroidXamarinDemo
 
             serviceManager = ServiceManager.GetInstance(this);
 
+            // Modify Title and Message to deliver a meaningful message to user.
             serviceManager.SetForegroundServiceNotification(Resource.Mipmap.Icon, "Title", "Message", null);
             serviceManager.SubscribeForApplicationNotification(this);
             SetContentView(Resource.Layout.Main);
@@ -94,7 +95,16 @@ namespace BDPointAndroidXamarinDemo
         {
             if (!serviceManager.IsBlueDotPointServiceRunning)
             {
-                serviceManager.SendAuthenticationRequest("performance.test.v193", "fbad63e0-e760-11e6-a1d3-b8ca3a6b879d", "hello@bluedotinnovation.com", this);
+				/* Start the Bluedot Point Service by providing with the credentials and a ServiceStatusListener, 
+				 * the app will be notified via the status listener if the Bluedot Point Service started successful.
+				 * 
+				 * Parameters
+				 * packageName  The package name of your app created in the Bluedot Point Access
+				 * apiKey       The API key generated for your app in the Bluedot Point Access
+				 * userName     The user name you used to login to the Bluedot Point Access
+				 * listener     A Service Status Listener
+                 */
+                serviceManager.SendAuthenticationRequest("", "", "", this);
                 updateLog("Authenticating..");
             }
             else
