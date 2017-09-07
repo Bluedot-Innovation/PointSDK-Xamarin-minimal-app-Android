@@ -17,8 +17,7 @@ namespace BDPointAndroidXamarinDemo
     public class MainActivity : Activity, IServiceStatusListener, IApplicationNotificationListener
     {
         TextView textViewStatusLog;
-        Button authenticateButton;
-        Button logoutButton;
+        ToggleButton authenticateButton;
 
         ServiceManager serviceManager;
 
@@ -35,6 +34,7 @@ namespace BDPointAndroidXamarinDemo
         public void OnBlueDotPointServiceStop()
         {
             updateLog("Bluedot service stopped");
+            authenticateButton.Checked = false;
         }
 
         public void OnCheckedOutFromBeacon(BeaconInfo p0, ZoneInfo p1, int p2, IDictionary<string, string> p3)
@@ -76,17 +76,13 @@ namespace BDPointAndroidXamarinDemo
 
             textViewStatusLog = (TextView)FindViewById(Resource.Id.tvStatusLog);
 
-            authenticateButton = FindViewById<Button>(Resource.Id.authenticate);
+            authenticateButton = FindViewById<ToggleButton>(Resource.Id.authenticate);
             authenticateButton.Click += (sender, e) =>
             {
-                startAuthentication();
-
-            };
-
-            logoutButton = FindViewById<Button>(Resource.Id.logout);
-            logoutButton.Click += (sender, e) =>
-            {
-                stopService();
+                if (authenticateButton.Checked)
+                    startAuthentication();
+                else
+                    stopService();
 
             };
         }
@@ -104,7 +100,6 @@ namespace BDPointAndroidXamarinDemo
 				 * userName     The user name you used to login to the Bluedot Point Access
 				 * listener     A Service Status Listener
                  */
-                serviceManager.SendAuthenticationRequest("", "", "", this);
                 updateLog("Authenticating..");
             }
             else

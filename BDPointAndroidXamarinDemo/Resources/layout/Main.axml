@@ -4,21 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dip">
-    <RelativeLayout
+    <ToggleButton
+        android:id="@+id/authenticate"
+        android:textOff="Authenticate"
+        android:textOn="Logout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content">
-        <Button
-            android:id="@+id/authenticate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Authenticate" />
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/authenticate"
-            android:text="Logout" />
-    </RelativeLayout>
+        android:layout_gravity="center_horizontal" />
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
