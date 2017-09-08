@@ -39,12 +39,12 @@ namespace BDPointAndroidXamarinDemo
 
         public void OnCheckedOutFromBeacon(BeaconInfo p0, ZoneInfo p1, int p2, IDictionary<string, string> p3)
         {
-            updateLog("Bluedot service - OnCheckedOutFromFence.");
+            updateLog("Bluedot service - OnCheckedOutFromBeacon.");
         }
 
         public void OnCheckedOutFromFence(FenceInfo p0, ZoneInfo p1, int p2, IDictionary<string, string> p3)
         {
-            updateLog("Bluedot service - OnCheckedOutFromBeacon.");
+            updateLog("Bluedot service - OnCheckedOutFromFence.");
         }
 
         public void OnCheckIntoBeacon(BeaconInfo p0, ZoneInfo p1, LocationInfo p2, Proximity p3, IDictionary<string, string> p4, bool p5)
@@ -100,6 +100,7 @@ namespace BDPointAndroidXamarinDemo
 				 * userName     The user name you used to login to the Bluedot Point Access
 				 * listener     A Service Status Listener
                  */
+                serviceManager.SendAuthenticationRequest("", "", "", this);
                 updateLog("Authenticating..");
             }
             else
