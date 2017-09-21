@@ -69,7 +69,7 @@ namespace BDPointAndroidXamarinDemo
             serviceManager = ServiceManager.GetInstance(this);
 
             // Modify Title and Message to deliver a meaningful message to user.
-            serviceManager.SetForegroundServiceNotification(Resource.Mipmap.Icon, "Title", "Message", null);
+            serviceManager.SetForegroundServiceNotification(Resource.Mipmap.Icon, "Title", "Message", null, true);
             serviceManager.SubscribeForApplicationNotification(this);
             SetContentView(Resource.Layout.Main);
 
