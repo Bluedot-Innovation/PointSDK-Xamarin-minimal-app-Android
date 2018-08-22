@@ -2,4 +2,6 @@
 <resources>
 	<string name="hello">Hello World, Click Me!</string>
 	<string name="app_name">BDPointXamarinDemo</string>
+    <string name="foreground_notification_title">Location Based Notifications</string>
+    <string name="foreground_notification_text">--PLEASE CHANGE-- This app is utilizing the location to trigger alerts in both background and foreground modes when you visit your favourite locations.</string>
 </resources>

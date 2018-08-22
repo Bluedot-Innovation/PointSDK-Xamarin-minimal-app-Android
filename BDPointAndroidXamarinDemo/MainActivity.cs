@@ -6,7 +6,8 @@ using AU.Com.Bluedot.Point;
 using AU.Com.Bluedot.Point.Net.Engine;
 using System;
 using System.Collections.Generic;
-
+using Android.Content.PM;
+            
 /*
  * Xamarin Activity implementing Bluedot Point SDK service interfaces(generated through the binding project) using JNI
  */
@@ -16,6 +17,16 @@ namespace BDPointAndroidXamarinDemo
     [Activity(Label = "BDPointXamarinDemo", MainLauncher = true, Icon = "@mipmap/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class MainActivity : Activity, IServiceStatusListener, IApplicationNotificationListener
     {
+
+        readonly string[] PermissionsLocation =
+        {
+            Android.Manifest.Permission.AccessCoarseLocation,
+            Android.Manifest.Permission.AccessFineLocation
+        };
+        const string permissionFine = Android.Manifest.Permission.AccessFineLocation;
+        const string permissionCoarse = Android.Manifest.Permission.AccessCoarseLocation;
+        const int RequestLocationId = 0;
+
         TextView textViewStatusLog;
         ToggleButton authenticateButton;
 
@@ -33,7 +44,7 @@ namespace BDPointAndroidXamarinDemo
 
         public void OnBlueDotPointServiceStop()
         {
-            updateLog("Bluedot service stopped");
+                   updateLog("Bluedot service stopped");
             authenticateButton.Checked = false;
         }
 
@@ -69,7 +80,7 @@ namespace BDPointAndroidXamarinDemo
             serviceManager = ServiceManager.GetInstance(this);
 
             // Modify Title and Message to deliver a meaningful message to user.
-            serviceManager.SetForegroundServiceNotification(Resource.Mipmap.Icon, "Title", "Message", null, true);
+            serviceManager.SetForegroundServiceNotification(createNotification(), false);
             serviceManager.SubscribeForApplicationNotification(this);
             SetContentView(Resource.Layout.Main);
 
@@ -79,10 +90,16 @@ namespace BDPointAndroidXamarinDemo
             authenticateButton = FindViewById<ToggleButton>(Resource.Id.authenticate);
             authenticateButton.Click += (sender, e) =>
             {
-                if (authenticateButton.Checked)
-                    startAuthentication();
-                else
-                    stopService();
+                
+                if (((CheckSelfPermission(permissionFine) == (int)Permission.Granted) ) &&  (CheckSelfPermission(permissionCoarse) == (int)Permission.Granted)) {
+                    if (authenticateButton.Checked)
+                        startAuthentication();
+                    else
+                        stopService();
+                } else {
+                    RequestPermissions(PermissionsLocation, RequestLocationId);
+                }
+
 
             };
         }
@@ -100,7 +117,8 @@ namespace BDPointAndroidXamarinDemo
 				 * userName     The user name you used to login to the Bluedot Point Access
 				 * listener     A Service Status Listener
                  */
-                serviceManager.SendAuthenticationRequest("", "", "", this);
+                serviceManager.SendAuthenticationRequest("", this);
+
                 updateLog("Authenticating..");
             }
             else
@@ -129,6 +147,31 @@ namespace BDPointAndroidXamarinDemo
 
         }
 
+        public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
+        {
+            switch (requestCode)
+            {
+                case RequestLocationId:
+                    {
+                        if (grantResults[0] == Permission.Granted)
+                        {
+                            //Permission granted
+                            startAuthentication();
+                        }
+                        else
+                        {
+                            //Permission Denied :(
+                            //Disabling location functionality
+                            Toast.MakeText(this, "Location permission is denied.", ToastLength.Long).Show();
+
+                        }
+                    }
+                    break;
+            }
+
+        }
+
+
 
         private void updateLog(String s)
         {
@@ -137,6 +180,53 @@ namespace BDPointAndroidXamarinDemo
                 textViewStatusLog.Append(s + "\n");
             });
         }
+
+
+        private Notification createNotification()
+        {
+            
+            String channelId;
+
+            if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
+            {
+                channelId = "Bluedot" + GetString(Resource.String.app_name);
+                String channelName = "Bluedot Service" + GetString(Resource.String.app_name);
+
+                NotificationChannel notificationChannel = new NotificationChannel(channelId, channelName, NotificationImportance.High);
+                notificationChannel.EnableLights(false);
+                notificationChannel.EnableVibration(false);
+
+                NotificationManager notificationManager = (NotificationManager)GetSystemService(NotificationService);
+                notificationManager.CreateNotificationChannel(notificationChannel);
+
+                Notification.Builder notification = new Notification.Builder(this, channelId)
+                    .SetContentTitle(GetString(Resource.String.foreground_notification_title))
+                    .SetContentText(GetString(Resource.String.foreground_notification_text))
+                    .SetStyle(new Notification.BigTextStyle().BigText(GetString(Resource.String.foreground_notification_text)))
+                        .SetOngoing(true)
+                        .SetCategory(Notification.CategoryService)
+                        .SetSmallIcon(Resource.Mipmap.Icon);
+
+                return notification.Build();
+            }
+            else
+            {
+                
+                Notification.Builder notification = new Notification.Builder(this)
+                    .SetContentTitle(GetString(Resource.String.foreground_notification_title))
+                    .SetContentText(GetString(Resource.String.foreground_notification_text))
+                    .SetStyle(new Notification.BigTextStyle().BigText(GetString(Resource.String.foreground_notification_text)))
+                        .SetOngoing(true)
+                        .SetCategory(Notification.CategoryService)
+                        .SetSmallIcon(Resource.Mipmap.Icon);
+
+                return notification.Build();
+            }
+        }
+
+
+
+
 
     }
 }
