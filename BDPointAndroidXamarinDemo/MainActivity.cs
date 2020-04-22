@@ -117,7 +117,7 @@ namespace BDPointAndroidXamarinDemo
 				 * userName     The user name you used to login to the Bluedot Point Access
 				 * listener     A Service Status Listener
                  */
-                serviceManager.SendAuthenticationRequest("<ENTER_API_KEY>", this);
+                serviceManager.SendAuthenticationRequest("4d8fc995-2387-4c12-a930-4aaa27c2b80d", this);
 
                 updateLog("Authenticating..");
             }
