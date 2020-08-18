@@ -79,6 +79,12 @@ namespace BDPointAndroidXamarinDemo
 
             serviceManager = ServiceManager.GetInstance(this);
 
+            //set CustomEventMetadata
+            IDictionary<string, string> keyValuePairs = new Dictionary<string, string>();
+            keyValuePairs.Add("uuid", "1234");
+            keyValuePairs.Add("size", "34");
+            serviceManager.SetCustomEventMetaData(keyValuePairs);
+
             // Modify Title and Message to deliver a meaningful message to user.
             serviceManager.SetForegroundServiceNotification(createNotification(), false);
             serviceManager.SubscribeForApplicationNotification(this);
