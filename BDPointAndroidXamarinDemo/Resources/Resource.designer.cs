@@ -34,64 +34,82 @@ namespace BDPointAndroidXamarinDemo
 			public const int alpha = 2130771968;
 			
 			// aapt resource value: 0x7F010001
-			public const int coordinatorLayoutStyle = 2130771969;
+			public const int buttonSize = 2130771969;
 			
 			// aapt resource value: 0x7F010002
-			public const int font = 2130771970;
+			public const int circleCrop = 2130771970;
 			
 			// aapt resource value: 0x7F010003
-			public const int fontProviderAuthority = 2130771971;
+			public const int colorScheme = 2130771971;
 			
 			// aapt resource value: 0x7F010004
-			public const int fontProviderCerts = 2130771972;
+			public const int coordinatorLayoutStyle = 2130771972;
 			
 			// aapt resource value: 0x7F010005
-			public const int fontProviderFetchStrategy = 2130771973;
+			public const int font = 2130771973;
 			
 			// aapt resource value: 0x7F010006
-			public const int fontProviderFetchTimeout = 2130771974;
+			public const int fontProviderAuthority = 2130771974;
 			
 			// aapt resource value: 0x7F010007
-			public const int fontProviderPackage = 2130771975;
+			public const int fontProviderCerts = 2130771975;
 			
 			// aapt resource value: 0x7F010008
-			public const int fontProviderQuery = 2130771976;
+			public const int fontProviderFetchStrategy = 2130771976;
 			
 			// aapt resource value: 0x7F010009
-			public const int fontStyle = 2130771977;
+			public const int fontProviderFetchTimeout = 2130771977;
 			
 			// aapt resource value: 0x7F01000A
-			public const int fontVariationSettings = 2130771978;
+			public const int fontProviderPackage = 2130771978;
 			
 			// aapt resource value: 0x7F01000B
-			public const int fontWeight = 2130771979;
+			public const int fontProviderQuery = 2130771979;
 			
 			// aapt resource value: 0x7F01000C
-			public const int keylines = 2130771980;
+			public const int fontStyle = 2130771980;
 			
 			// aapt resource value: 0x7F01000D
-			public const int layout_anchor = 2130771981;
+			public const int fontVariationSettings = 2130771981;
 			
 			// aapt resource value: 0x7F01000E
-			public const int layout_anchorGravity = 2130771982;
+			public const int fontWeight = 2130771982;
 			
 			// aapt resource value: 0x7F01000F
-			public const int layout_behavior = 2130771983;
+			public const int imageAspectRatio = 2130771983;
 			
 			// aapt resource value: 0x7F010010
-			public const int layout_dodgeInsetEdges = 2130771984;
+			public const int imageAspectRatioAdjust = 2130771984;
 			
 			// aapt resource value: 0x7F010011
-			public const int layout_insetEdge = 2130771985;
+			public const int keylines = 2130771985;
 			
 			// aapt resource value: 0x7F010012
-			public const int layout_keyline = 2130771986;
+			public const int layout_anchor = 2130771986;
 			
 			// aapt resource value: 0x7F010013
-			public const int statusBarBackground = 2130771987;
+			public const int layout_anchorGravity = 2130771987;
 			
 			// aapt resource value: 0x7F010014
-			public const int ttcIndex = 2130771988;
+			public const int layout_behavior = 2130771988;
+			
+			// aapt resource value: 0x7F010015
+			public const int layout_dodgeInsetEdges = 2130771989;
+			
+			// aapt resource value: 0x7F010016
+			public const int layout_insetEdge = 2130771990;
+			
+			// aapt resource value: 0x7F010017
+			public const int layout_keyline = 2130771991;
+			
+			// aapt resource value: 0x7F010018
+			public const int scopeUris = 2130771992;
+			
+			// aapt resource value: 0x7F010019
+			public const int statusBarBackground = 2130771993;
+			
+			// aapt resource value: 0x7F01001A
+			public const int ttcIndex = 2130771994;
 			
 			static Attribute()
 			{
@@ -132,25 +150,58 @@ namespace BDPointAndroidXamarinDemo
 		{
 			
 			// aapt resource value: 0x7F030000
-			public const int notification_action_color_filter = 2130903040;
+			public const int common_google_signin_btn_text_dark = 2130903040;
 			
 			// aapt resource value: 0x7F030001
-			public const int notification_icon_bg_color = 2130903041;
+			public const int common_google_signin_btn_text_dark_default = 2130903041;
 			
 			// aapt resource value: 0x7F030002
-			public const int notification_material_background_media_default_color = 2130903042;
+			public const int common_google_signin_btn_text_dark_disabled = 2130903042;
 			
 			// aapt resource value: 0x7F030003
-			public const int primary_text_default_material_dark = 2130903043;
+			public const int common_google_signin_btn_text_dark_focused = 2130903043;
 			
 			// aapt resource value: 0x7F030004
-			public const int ripple_material_light = 2130903044;
+			public const int common_google_signin_btn_text_dark_pressed = 2130903044;
 			
 			// aapt resource value: 0x7F030005
-			public const int secondary_text_default_material_dark = 2130903045;
+			public const int common_google_signin_btn_text_light = 2130903045;
 			
 			// aapt resource value: 0x7F030006
-			public const int secondary_text_default_material_light = 2130903046;
+			public const int common_google_signin_btn_text_light_default = 2130903046;
+			
+			// aapt resource value: 0x7F030007
+			public const int common_google_signin_btn_text_light_disabled = 2130903047;
+			
+			// aapt resource value: 0x7F030008
+			public const int common_google_signin_btn_text_light_focused = 2130903048;
+			
+			// aapt resource value: 0x7F030009
+			public const int common_google_signin_btn_text_light_pressed = 2130903049;
+			
+			// aapt resource value: 0x7F03000A
+			public const int common_google_signin_btn_tint = 2130903050;
+			
+			// aapt resource value: 0x7F03000B
+			public const int notification_action_color_filter = 2130903051;
+			
+			// aapt resource value: 0x7F03000C
+			public const int notification_icon_bg_color = 2130903052;
+			
+			// aapt resource value: 0x7F03000D
+			public const int notification_material_background_media_default_color = 2130903053;
+			
+			// aapt resource value: 0x7F03000E
+			public const int primary_text_default_material_dark = 2130903054;
+			
+			// aapt resource value: 0x7F03000F
+			public const int ripple_material_light = 2130903055;
+			
+			// aapt resource value: 0x7F030010
+			public const int secondary_text_default_material_dark = 2130903056;
+			
+			// aapt resource value: 0x7F030011
+			public const int secondary_text_default_material_light = 2130903057;
 			
 			static Color()
 			{
@@ -260,40 +311,103 @@ namespace BDPointAndroidXamarinDemo
 			public const int abc_vector_test = 2131034112;
 			
 			// aapt resource value: 0x7F050001
-			public const int notification_action_background = 2131034113;
+			public const int common_full_open_on_phone = 2131034113;
 			
 			// aapt resource value: 0x7F050002
-			public const int notification_bg = 2131034114;
+			public const int common_google_signin_btn_icon_dark = 2131034114;
 			
 			// aapt resource value: 0x7F050003
-			public const int notification_bg_low = 2131034115;
+			public const int common_google_signin_btn_icon_dark_focused = 2131034115;
 			
 			// aapt resource value: 0x7F050004
-			public const int notification_bg_low_normal = 2131034116;
+			public const int common_google_signin_btn_icon_dark_normal = 2131034116;
 			
 			// aapt resource value: 0x7F050005
-			public const int notification_bg_low_pressed = 2131034117;
+			public const int common_google_signin_btn_icon_dark_normal_background = 2131034117;
 			
 			// aapt resource value: 0x7F050006
-			public const int notification_bg_normal = 2131034118;
+			public const int common_google_signin_btn_icon_disabled = 2131034118;
 			
 			// aapt resource value: 0x7F050007
-			public const int notification_bg_normal_pressed = 2131034119;
+			public const int common_google_signin_btn_icon_light = 2131034119;
 			
 			// aapt resource value: 0x7F050008
-			public const int notification_icon_background = 2131034120;
+			public const int common_google_signin_btn_icon_light_focused = 2131034120;
 			
 			// aapt resource value: 0x7F050009
-			public const int notification_template_icon_bg = 2131034121;
+			public const int common_google_signin_btn_icon_light_normal = 2131034121;
 			
 			// aapt resource value: 0x7F05000A
-			public const int notification_template_icon_low_bg = 2131034122;
+			public const int common_google_signin_btn_icon_light_normal_background = 2131034122;
 			
 			// aapt resource value: 0x7F05000B
-			public const int notification_tile_bg = 2131034123;
+			public const int common_google_signin_btn_text_dark = 2131034123;
 			
 			// aapt resource value: 0x7F05000C
-			public const int notify_panel_notification_icon_bg = 2131034124;
+			public const int common_google_signin_btn_text_dark_focused = 2131034124;
+			
+			// aapt resource value: 0x7F05000D
+			public const int common_google_signin_btn_text_dark_normal = 2131034125;
+			
+			// aapt resource value: 0x7F05000E
+			public const int common_google_signin_btn_text_dark_normal_background = 2131034126;
+			
+			// aapt resource value: 0x7F05000F
+			public const int common_google_signin_btn_text_disabled = 2131034127;
+			
+			// aapt resource value: 0x7F050010
+			public const int common_google_signin_btn_text_light = 2131034128;
+			
+			// aapt resource value: 0x7F050011
+			public const int common_google_signin_btn_text_light_focused = 2131034129;
+			
+			// aapt resource value: 0x7F050012
+			public const int common_google_signin_btn_text_light_normal = 2131034130;
+			
+			// aapt resource value: 0x7F050013
+			public const int common_google_signin_btn_text_light_normal_background = 2131034131;
+			
+			// aapt resource value: 0x7F050014
+			public const int googleg_disabled_color_18 = 2131034132;
+			
+			// aapt resource value: 0x7F050015
+			public const int googleg_standard_color_18 = 2131034133;
+			
+			// aapt resource value: 0x7F050016
+			public const int notification_action_background = 2131034134;
+			
+			// aapt resource value: 0x7F050017
+			public const int notification_bg = 2131034135;
+			
+			// aapt resource value: 0x7F050018
+			public const int notification_bg_low = 2131034136;
+			
+			// aapt resource value: 0x7F050019
+			public const int notification_bg_low_normal = 2131034137;
+			
+			// aapt resource value: 0x7F05001A
+			public const int notification_bg_low_pressed = 2131034138;
+			
+			// aapt resource value: 0x7F05001B
+			public const int notification_bg_normal = 2131034139;
+			
+			// aapt resource value: 0x7F05001C
+			public const int notification_bg_normal_pressed = 2131034140;
+			
+			// aapt resource value: 0x7F05001D
+			public const int notification_icon_background = 2131034141;
+			
+			// aapt resource value: 0x7F05001E
+			public const int notification_template_icon_bg = 2131034142;
+			
+			// aapt resource value: 0x7F05001F
+			public const int notification_template_icon_low_bg = 2131034143;
+			
+			// aapt resource value: 0x7F050020
+			public const int notification_tile_bg = 2131034144;
+			
+			// aapt resource value: 0x7F050021
+			public const int notify_panel_notification_icon_bg = 2131034145;
 			
 			static Drawable()
 			{
@@ -426,160 +540,184 @@ namespace BDPointAndroidXamarinDemo
 			public const int action_text = 2131099685;
 			
 			// aapt resource value: 0x7F060027
-			public const int all = 2131099687;
+			public const int adjust_height = 2131099687;
 			
 			// aapt resource value: 0x7F060028
-			public const int async = 2131099688;
+			public const int adjust_width = 2131099688;
 			
 			// aapt resource value: 0x7F060029
-			public const int authenticate = 2131099689;
+			public const int all = 2131099689;
 			
 			// aapt resource value: 0x7F06002A
-			public const int blocking = 2131099690;
+			public const int async = 2131099690;
 			
 			// aapt resource value: 0x7F06002B
-			public const int bottom = 2131099691;
+			public const int authenticate = 2131099691;
 			
 			// aapt resource value: 0x7F06002C
-			public const int cancel_action = 2131099692;
+			public const int auto = 2131099692;
 			
 			// aapt resource value: 0x7F06002D
-			public const int center = 2131099693;
+			public const int blocking = 2131099693;
 			
 			// aapt resource value: 0x7F06002E
-			public const int center_horizontal = 2131099694;
+			public const int bottom = 2131099694;
 			
 			// aapt resource value: 0x7F06002F
-			public const int center_vertical = 2131099695;
+			public const int cancel_action = 2131099695;
 			
 			// aapt resource value: 0x7F060030
-			public const int chronometer = 2131099696;
+			public const int center = 2131099696;
 			
 			// aapt resource value: 0x7F060031
-			public const int clip_horizontal = 2131099697;
+			public const int center_horizontal = 2131099697;
 			
 			// aapt resource value: 0x7F060032
-			public const int clip_vertical = 2131099698;
+			public const int center_vertical = 2131099698;
 			
 			// aapt resource value: 0x7F060033
-			public const int dialog_button = 2131099699;
+			public const int chronometer = 2131099699;
 			
 			// aapt resource value: 0x7F060034
-			public const int end = 2131099700;
+			public const int clip_horizontal = 2131099700;
 			
 			// aapt resource value: 0x7F060035
-			public const int end_padder = 2131099701;
+			public const int clip_vertical = 2131099701;
 			
 			// aapt resource value: 0x7F060036
-			public const int fill = 2131099702;
+			public const int dark = 2131099702;
 			
 			// aapt resource value: 0x7F060037
-			public const int fill_horizontal = 2131099703;
+			public const int dialog_button = 2131099703;
 			
 			// aapt resource value: 0x7F060038
-			public const int fill_vertical = 2131099704;
+			public const int end = 2131099704;
 			
 			// aapt resource value: 0x7F060039
-			public const int forever = 2131099705;
+			public const int end_padder = 2131099705;
 			
 			// aapt resource value: 0x7F06003A
-			public const int icon = 2131099706;
+			public const int fill = 2131099706;
 			
 			// aapt resource value: 0x7F06003B
-			public const int icon_group = 2131099707;
+			public const int fill_horizontal = 2131099707;
 			
 			// aapt resource value: 0x7F06003C
-			public const int info = 2131099708;
+			public const int fill_vertical = 2131099708;
 			
 			// aapt resource value: 0x7F06003D
-			public const int italic = 2131099709;
+			public const int forever = 2131099709;
 			
 			// aapt resource value: 0x7F06003E
-			public const int left = 2131099710;
+			public const int icon = 2131099710;
 			
 			// aapt resource value: 0x7F06003F
-			public const int line1 = 2131099711;
+			public const int icon_group = 2131099711;
 			
 			// aapt resource value: 0x7F060040
-			public const int line3 = 2131099712;
+			public const int icon_only = 2131099712;
 			
 			// aapt resource value: 0x7F060041
-			public const int log_panel = 2131099713;
+			public const int info = 2131099713;
 			
 			// aapt resource value: 0x7F060042
-			public const int media_actions = 2131099714;
+			public const int italic = 2131099714;
 			
 			// aapt resource value: 0x7F060043
-			public const int none = 2131099715;
+			public const int left = 2131099715;
 			
 			// aapt resource value: 0x7F060044
-			public const int normal = 2131099716;
+			public const int light = 2131099716;
 			
 			// aapt resource value: 0x7F060045
-			public const int notification_background = 2131099717;
+			public const int line1 = 2131099717;
 			
 			// aapt resource value: 0x7F060046
-			public const int notification_main_column = 2131099718;
+			public const int line3 = 2131099718;
 			
 			// aapt resource value: 0x7F060047
-			public const int notification_main_column_container = 2131099719;
+			public const int log_panel = 2131099719;
 			
 			// aapt resource value: 0x7F060048
-			public const int right = 2131099720;
+			public const int media_actions = 2131099720;
 			
 			// aapt resource value: 0x7F060049
-			public const int right_icon = 2131099721;
+			public const int none = 2131099721;
 			
 			// aapt resource value: 0x7F06004A
-			public const int right_side = 2131099722;
+			public const int normal = 2131099722;
 			
 			// aapt resource value: 0x7F06004B
-			public const int start = 2131099723;
+			public const int notification_background = 2131099723;
 			
 			// aapt resource value: 0x7F06004C
-			public const int status_bar_latest_event_content = 2131099724;
+			public const int notification_main_column = 2131099724;
 			
 			// aapt resource value: 0x7F06004D
-			public const int tag_accessibility_actions = 2131099725;
+			public const int notification_main_column_container = 2131099725;
 			
 			// aapt resource value: 0x7F06004E
-			public const int tag_accessibility_clickable_spans = 2131099726;
+			public const int right = 2131099726;
 			
 			// aapt resource value: 0x7F06004F
-			public const int tag_accessibility_heading = 2131099727;
+			public const int right_icon = 2131099727;
 			
 			// aapt resource value: 0x7F060050
-			public const int tag_accessibility_pane_title = 2131099728;
+			public const int right_side = 2131099728;
 			
 			// aapt resource value: 0x7F060051
-			public const int tag_screen_reader_focusable = 2131099729;
+			public const int standard = 2131099729;
 			
 			// aapt resource value: 0x7F060052
-			public const int tag_transition_group = 2131099730;
+			public const int start = 2131099730;
 			
 			// aapt resource value: 0x7F060053
-			public const int tag_unhandled_key_event_manager = 2131099731;
+			public const int status_bar_latest_event_content = 2131099731;
 			
 			// aapt resource value: 0x7F060054
-			public const int tag_unhandled_key_listeners = 2131099732;
+			public const int tag_accessibility_actions = 2131099732;
 			
 			// aapt resource value: 0x7F060055
-			public const int text = 2131099733;
+			public const int tag_accessibility_clickable_spans = 2131099733;
 			
 			// aapt resource value: 0x7F060056
-			public const int text2 = 2131099734;
+			public const int tag_accessibility_heading = 2131099734;
 			
 			// aapt resource value: 0x7F060057
-			public const int time = 2131099735;
+			public const int tag_accessibility_pane_title = 2131099735;
 			
 			// aapt resource value: 0x7F060058
-			public const int title = 2131099736;
+			public const int tag_screen_reader_focusable = 2131099736;
 			
 			// aapt resource value: 0x7F060059
-			public const int top = 2131099737;
+			public const int tag_transition_group = 2131099737;
 			
 			// aapt resource value: 0x7F06005A
-			public const int tvStatusLog = 2131099738;
+			public const int tag_unhandled_key_event_manager = 2131099738;
+			
+			// aapt resource value: 0x7F06005B
+			public const int tag_unhandled_key_listeners = 2131099739;
+			
+			// aapt resource value: 0x7F06005C
+			public const int text = 2131099740;
+			
+			// aapt resource value: 0x7F06005D
+			public const int text2 = 2131099741;
+			
+			// aapt resource value: 0x7F06005E
+			public const int time = 2131099742;
+			
+			// aapt resource value: 0x7F06005F
+			public const int title = 2131099743;
+			
+			// aapt resource value: 0x7F060060
+			public const int top = 2131099744;
+			
+			// aapt resource value: 0x7F060061
+			public const int tvStatusLog = 2131099745;
+			
+			// aapt resource value: 0x7F060062
+			public const int wide = 2131099746;
 			
 			static Id()
 			{
@@ -598,7 +736,10 @@ namespace BDPointAndroidXamarinDemo
 			public const int cancel_button_image_alpha = 2131165184;
 			
 			// aapt resource value: 0x7F070001
-			public const int status_bar_notification_info_maxnum = 2131165185;
+			public const int google_play_services_version = 2131165185;
+			
+			// aapt resource value: 0x7F070002
+			public const int status_bar_notification_info_maxnum = 2131165186;
 			
 			static Integer()
 			{
@@ -697,16 +838,70 @@ namespace BDPointAndroidXamarinDemo
 			public const int app_name = 2131361792;
 			
 			// aapt resource value: 0x7F0A0001
-			public const int foreground_notification_text = 2131361793;
+			public const int common_google_play_services_enable_button = 2131361793;
 			
 			// aapt resource value: 0x7F0A0002
-			public const int foreground_notification_title = 2131361794;
+			public const int common_google_play_services_enable_text = 2131361794;
 			
 			// aapt resource value: 0x7F0A0003
-			public const int hello = 2131361795;
+			public const int common_google_play_services_enable_title = 2131361795;
 			
 			// aapt resource value: 0x7F0A0004
-			public const int status_bar_notification_info_overflow = 2131361796;
+			public const int common_google_play_services_install_button = 2131361796;
+			
+			// aapt resource value: 0x7F0A0005
+			public const int common_google_play_services_install_text = 2131361797;
+			
+			// aapt resource value: 0x7F0A0006
+			public const int common_google_play_services_install_title = 2131361798;
+			
+			// aapt resource value: 0x7F0A0007
+			public const int common_google_play_services_notification_channel_name = 2131361799;
+			
+			// aapt resource value: 0x7F0A0008
+			public const int common_google_play_services_notification_ticker = 2131361800;
+			
+			// aapt resource value: 0x7F0A0009
+			public const int common_google_play_services_unknown_issue = 2131361801;
+			
+			// aapt resource value: 0x7F0A000A
+			public const int common_google_play_services_unsupported_text = 2131361802;
+			
+			// aapt resource value: 0x7F0A000B
+			public const int common_google_play_services_update_button = 2131361803;
+			
+			// aapt resource value: 0x7F0A000C
+			public const int common_google_play_services_update_text = 2131361804;
+			
+			// aapt resource value: 0x7F0A000D
+			public const int common_google_play_services_update_title = 2131361805;
+			
+			// aapt resource value: 0x7F0A000E
+			public const int common_google_play_services_updating_text = 2131361806;
+			
+			// aapt resource value: 0x7F0A000F
+			public const int common_google_play_services_wear_update_text = 2131361807;
+			
+			// aapt resource value: 0x7F0A0010
+			public const int common_open_on_phone = 2131361808;
+			
+			// aapt resource value: 0x7F0A0011
+			public const int common_signin_button_text = 2131361809;
+			
+			// aapt resource value: 0x7F0A0012
+			public const int common_signin_button_text_long = 2131361810;
+			
+			// aapt resource value: 0x7F0A0013
+			public const int foreground_notification_text = 2131361811;
+			
+			// aapt resource value: 0x7F0A0014
+			public const int foreground_notification_title = 2131361812;
+			
+			// aapt resource value: 0x7F0A0015
+			public const int hello = 2131361813;
+			
+			// aapt resource value: 0x7F0A0016
+			public const int status_bar_notification_info_overflow = 2131361814;
 			
 			static String()
 			{
@@ -845,23 +1040,23 @@ namespace BDPointAndroidXamarinDemo
 			// aapt resource value: 0
 			public const int ColorStateListItem_android_color = 0;
 			
-			// aapt resource value: { 0x7F01000C,0x7F010013 }
+			// aapt resource value: { 0x7F010011,0x7F010019 }
 			public static int[] CoordinatorLayout = new int[] {
-					2130771980,
-					2130771987};
+					2130771985,
+					2130771993};
 			
 			// aapt resource value: 0
 			public const int CoordinatorLayout_keylines = 0;
 			
-			// aapt resource value: { 0x10100B3,0x7F01000D,0x7F01000E,0x7F01000F,0x7F010010,0x7F010011,0x7F010012 }
+			// aapt resource value: { 0x10100B3,0x7F010012,0x7F010013,0x7F010014,0x7F010015,0x7F010016,0x7F010017 }
 			public static int[] CoordinatorLayout_Layout = new int[] {
 					16842931,
-					2130771981,
-					2130771982,
-					2130771983,
-					2130771984,
-					2130771985,
-					2130771986};
+					2130771986,
+					2130771987,
+					2130771988,
+					2130771989,
+					2130771990,
+					2130771991};
 			
 			// aapt resource value: 0
 			public const int CoordinatorLayout_Layout_android_layout_gravity = 0;
@@ -887,27 +1082,27 @@ namespace BDPointAndroidXamarinDemo
 			// aapt resource value: 1
 			public const int CoordinatorLayout_statusBarBackground = 1;
 			
-			// aapt resource value: { 0x7F010003,0x7F010004,0x7F010005,0x7F010006,0x7F010007,0x7F010008 }
+			// aapt resource value: { 0x7F010006,0x7F010007,0x7F010008,0x7F010009,0x7F01000A,0x7F01000B }
 			public static int[] FontFamily = new int[] {
-					2130771971,
-					2130771972,
-					2130771973,
 					2130771974,
 					2130771975,
-					2130771976};
+					2130771976,
+					2130771977,
+					2130771978,
+					2130771979};
 			
-			// aapt resource value: { 0x1010532,0x1010533,0x101053F,0x101056F,0x1010570,0x7F010002,0x7F010009,0x7F01000A,0x7F01000B,0x7F010014 }
+			// aapt resource value: { 0x1010532,0x1010533,0x101053F,0x101056F,0x1010570,0x7F010005,0x7F01000C,0x7F01000D,0x7F01000E,0x7F01001A }
 			public static int[] FontFamilyFont = new int[] {
 					16844082,
 					16844083,
 					16844095,
 					16844143,
 					16844144,
-					2130771970,
-					2130771977,
-					2130771978,
-					2130771979,
-					2130771988};
+					2130771973,
+					2130771980,
+					2130771981,
+					2130771982,
+					2130771994};
 			
 			// aapt resource value: 0
 			public const int FontFamilyFont_android_font = 0;
@@ -1018,6 +1213,36 @@ namespace BDPointAndroidXamarinDemo
 			
 			// aapt resource value: 2
 			public const int GradientColor_android_type = 2;
+			
+			// aapt resource value: { 0x7F010002,0x7F01000F,0x7F010010 }
+			public static int[] LoadingImageView = new int[] {
+					2130771970,
+					2130771983,
+					2130771984};
+			
+			// aapt resource value: 0
+			public const int LoadingImageView_circleCrop = 0;
+			
+			// aapt resource value: 1
+			public const int LoadingImageView_imageAspectRatio = 1;
+			
+			// aapt resource value: 2
+			public const int LoadingImageView_imageAspectRatioAdjust = 2;
+			
+			// aapt resource value: { 0x7F010001,0x7F010003,0x7F010018 }
+			public static int[] SignInButton = new int[] {
+					2130771969,
+					2130771971,
+					2130771992};
+			
+			// aapt resource value: 0
+			public const int SignInButton_buttonSize = 0;
+			
+			// aapt resource value: 1
+			public const int SignInButton_colorScheme = 1;
+			
+			// aapt resource value: 2
+			public const int SignInButton_scopeUris = 2;
 			
 			// aapt resource value: { 0x101011C,0x1010194,0x1010195,0x1010196,0x101030C,0x101030D }
 			public static int[] StateListDrawable = new int[] {
