@@ -7,15 +7,15 @@ using AU.Com.Bluedot.Point.Net.Engine;
 using System;
 using System.Collections.Generic;
 using Android.Content.PM;
-            
+using Java.Interop;
 /*
- * Xamarin Activity implementing Bluedot Point SDK service interfaces(generated through the binding project) using JNI
- */
+* Xamarin Activity implementing Bluedot Point SDK service interfaces(generated through the binding project) using JNI
+*/
 
 namespace BDPointAndroidXamarinDemo
 {
     [Activity(Label = "BDPointXamarinDemo", MainLauncher = true, Icon = "@mipmap/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class MainActivity : Activity, IServiceStatusListener, IApplicationNotificationListener
+    public class MainActivity : Activity, IInitializationResultListener, IGeoTriggeringStatusListener, ITempoServiceStatusListener, IResetResultReceiver
     {
 
         readonly string[] PermissionsLocation =
@@ -28,51 +28,12 @@ namespace BDPointAndroidXamarinDemo
         const int RequestLocationId = 0;
 
         TextView textViewStatusLog;
-        ToggleButton authenticateButton;
+        ToggleButton initButton;
+        ToggleButton geoButton;
+        ToggleButton tempoButton;
 
         ServiceManager serviceManager;
-
-        public void OnBlueDotPointServiceError(BDError p0)
-        {
-            updateLog("Bluedot service returned error" + p0.Reason);
-        }
-
-        public void OnBlueDotPointServiceStartedSuccess()
-        {
-            updateLog("Bluedot service started successfully");
-        }
-
-        public void OnBlueDotPointServiceStop()
-        {
-                   updateLog("Bluedot service stopped");
-            authenticateButton.Checked = false;
-        }
-
-        public void OnCheckedOutFromBeacon(BeaconInfo p0, ZoneInfo p1, int p2, IDictionary<string, string> p3)
-        {
-            updateLog("Bluedot service - OnCheckedOutFromBeacon.");
-        }
-
-        public void OnCheckedOutFromFence(FenceInfo p0, ZoneInfo p1, int p2, IDictionary<string, string> p3)
-        {
-            updateLog("Bluedot service - OnCheckedOutFromFence.");
-        }
-
-        public void OnCheckIntoBeacon(BeaconInfo p0, ZoneInfo p1, LocationInfo p2, Proximity p3, IDictionary<string, string> p4, bool p5)
-        {
-            updateLog("Bluedot service - OnCheckIntoBeacon.");
-        }
-
-        public void OnCheckIntoFence(FenceInfo p0, ZoneInfo p1, LocationInfo p2, IDictionary<string, string> p3, bool p4)
-        {
-            updateLog("Bluedot service - OnCheckIntoFence.");
-        }
-
-        public void OnRuleUpdate(IList<ZoneInfo> p0)
-        {
-            updateLog("Bluedot service - rules downloaded.");
-        }
-
+      
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -85,74 +46,108 @@ namespace BDPointAndroidXamarinDemo
             keyValuePairs.Add("size", "34");
             serviceManager.SetCustomEventMetaData(keyValuePairs);
 
-            // Modify Title and Message to deliver a meaningful message to user.
-            serviceManager.SetForegroundServiceNotification(createNotification(), false);
-            serviceManager.SubscribeForApplicationNotification(this);
             SetContentView(Resource.Layout.Main);
 
 
             textViewStatusLog = (TextView)FindViewById(Resource.Id.tvStatusLog);
 
-            authenticateButton = FindViewById<ToggleButton>(Resource.Id.authenticate);
-            authenticateButton.Click += (sender, e) =>
+            initButton = FindViewById<ToggleButton>(Resource.Id.init);
+            initButton.Click += (sender, e) =>
             {
-                
-                if (((CheckSelfPermission(permissionFine) == (int)Permission.Granted) ) &&  (CheckSelfPermission(permissionCoarse) == (int)Permission.Granted)) {
-                    if (authenticateButton.Checked)
-                        startAuthentication();
+
+                if (((CheckSelfPermission(permissionFine) == (int)Permission.Granted)) && (CheckSelfPermission(permissionCoarse) == (int)Permission.Granted))
+                {
+                    if (initButton.Checked)
+                        startInit();
                     else
-                        stopService();
-                } else {
+                        reset();
+                }
+                else
+                {
                     RequestPermissions(PermissionsLocation, RequestLocationId);
                 }
 
+            };
+
+            geoButton = FindViewById<ToggleButton>(Resource.Id.geoTrigger);
+            geoButton.Click += (sender, e) =>
+            {
+                if (geoButton.Checked)
+                    startGeoTrigger();
+                else
+                    stopGeoTrigger();
+
+            };
+
+            tempoButton = FindViewById<ToggleButton>(Resource.Id.tempo);
+            tempoButton.Click += (sender, e) =>
+            {
+                if (tempoButton.Checked)
+                    startTempo();
+                else
+                    stopTempo();
 
             };
         }
 
-        private void startAuthentication()
+        private void startGeoTrigger()
         {
-            if (!serviceManager.IsBlueDotPointServiceRunning)
-            {
-				/* Start the Bluedot Point Service by providing with the credentials and a ServiceStatusListener, 
-				 * the app will be notified via the status listener if the Bluedot Point Service started successful.
-				 * 
-				 * Parameters
-				 * packageName  The package name of your app created in the Bluedot Point Access
-				 * apiKey       The API key generated for your app in the Bluedot Point Access
-				 * userName     The user name you used to login to the Bluedot Point Access
-				 * listener     A Service Status Listener
-                 */
-                serviceManager.SendAuthenticationRequest("<ENTER_API_KEY>", this);
 
-                updateLog("Authenticating..");
+            GeoTriggeringService.Builder()
+               .InvokeNotification(createNotification())
+               .Start(this, this);
+        }
+
+
+        private void stopGeoTrigger()
+        {
+            GeoTriggeringService.Stop(this, this);
+        }
+
+        private void startTempo()
+        {
+            TempoService.Builder()
+                .InvokeDestinationId("<DESTINATION_ID>")
+                .InvokeNotification(createNotification())
+                .Start(this, this);
+        }
+
+        private void stopTempo()
+        {
+            BDError error = TempoService.Stop(this);
+            if (error == null)
+                updateLog("Tempo Stop success");
+            else
+                updateLog("Error in stopping Tempo" + error.Reason);
+        }
+
+        private void reset()
+        {
+            if (serviceManager.IsBluedotServiceInitialized)
+            {
+                serviceManager.Reset(this);
+                updateLog("Reseting SDK");
+            }
+            else
+                updateLog("Already Reset");
+        }
+
+        private void startInit()
+        {
+
+            if (!serviceManager.IsBluedotServiceInitialized)
+            {
+                serviceManager.Initialize("<YOUR-PROJECT-ID>", this);
+                updateLog("Initializing..");
             }
             else
             {
-                updateLog("Already Authenticated");
+                updateLog("Already Initialized");
             }
 
         }
 
-        public void stopService()
-        {
-            if (serviceManager != null)
-            {
-                if (serviceManager.IsBlueDotPointServiceRunning)
-                {
-                    //Call the method stopPointService in ServiceManager to stop Bluedot PointService
-                    serviceManager.StopPointService();
-                    updateLog("Logged Out");
-                }
-                else
-                {
-                    updateLog("Already Logged out");
-                }
-
-            }
-
-        }
-
+     
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             switch (requestCode)
@@ -162,7 +157,7 @@ namespace BDPointAndroidXamarinDemo
                         if (grantResults[0] == Permission.Granted)
                         {
                             //Permission granted
-                            startAuthentication();
+                            startInit();
                         }
                         else
                         {
@@ -179,7 +174,7 @@ namespace BDPointAndroidXamarinDemo
 
 
 
-        private void updateLog(String s)
+       private void updateLog(String s)
         {
             RunOnUiThread(() =>
             {
@@ -190,7 +185,7 @@ namespace BDPointAndroidXamarinDemo
 
         private Notification createNotification()
         {
-            
+
             String channelId;
 
             if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
@@ -217,7 +212,7 @@ namespace BDPointAndroidXamarinDemo
             }
             else
             {
-                
+
                 Notification.Builder notification = new Notification.Builder(this)
                     .SetContentTitle(GetString(Resource.String.foreground_notification_title))
                     .SetContentText(GetString(Resource.String.foreground_notification_text))
@@ -230,10 +225,47 @@ namespace BDPointAndroidXamarinDemo
             }
         }
 
+        public void OnInitializationFinished(BDError error)
+        {
+            if (error == null)
+            {
+                //initButton.Checked = true;
+                updateLog("Initialized Success");
+                return;
+            }
+            updateLog("Error " + error.Reason);
+        }
 
+        public void OnGeoTriggeringResult(BDError geoTriggerError)
+        {
+            if (geoTriggerError != null)
+            {
+                updateLog("Error in GeoTrigger" + geoTriggerError.Reason);
+                return;
+            }
+            updateLog("GeoTrigger action success");
 
+        }
 
+        public void OnTempoResult(BDError tempoError)
+        {
+            if (tempoError != null)
+            {
+                updateLog("Error in Tempo" + tempoError.Reason);
+                return;
+            }
+            updateLog("Tempo start success");
+        }
 
+        public void OnResetFinished(BDError error)
+        {
+            if (error != null)
+            {
+                updateLog("Error in Reset" + error.Reason);
+                return;
+            }
+            updateLog("Reset success");
+        }
     }
 }
 
