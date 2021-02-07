@@ -2,12 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="au.com.bluedot.pointsdk" android:versionCode="1" android:versionName="14.0.0">
 	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="29" />
 	<!-- General Point SDK functionality -->
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
 	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 	<uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
@@ -16,29 +10,5 @@
 	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 	<!-- Required for SessionLogger -->
 	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-	<application>
-		<service android:name="au.com.bluedot.point.beacon.BlueDotBLEService" android:exported="false" />
-		<service android:name="au.com.bluedot.point.net.engine.BlueDotPointJobService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" />
-		<service android:name="au.com.bluedot.point.net.engine.BlueDotPointService" android:exported="false" android:foregroundServiceType="location" />
-		<service android:name="au.com.bluedot.point.net.engine.DataIntentService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" />
-		<service android:name="au.com.bluedot.point.net.engine.DataJobIntentService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" />
-		<service android:name="au.com.bluedot.point.net.engine.DataJobScheduler" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" />
-		<service android:name="au.com.bluedot.point.net.engine.BDJobRegistryService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" />
-		<service android:name="au.com.bluedot.point.net.engine.BluedotLocationService" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE" />
-		<receiver android:name="au.com.bluedot.point.net.engine.BluedotBootReceiver" android:directBootAware="true" android:enabled="false" android:exported="false">
-			<intent-filter>
-				<action android:name="android.intent.action.BOOT_COMPLETED" />
-				<action android:name="android.intent.action.QUICKBOOT_POWERON" />
-				<action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
-			</intent-filter>
-		</receiver>
-		<receiver android:name="au.com.bluedot.point.net.engine.LocationUpdatesReceiver" android:exported="true">
-			<intent-filter>
-				<action android:name="au.com.bluedot.point.net.engine.LocationUpdatesReceiver.ACTION_PROCESS_UPDATES" />
-			</intent-filter>
-		</receiver>
-		<receiver android:name="au.com.bluedot.point.net.engine.StartJobIntentServiceReceiver" />
-		<receiver android:name="au.com.bluedot.point.net.engine.BDJobBroadcastReceiver" />
-		<receiver android:name="au.com.bluedot.point.net.engine.BluedotLocationBroadcastReceiver" />
-	</application>
+	<application tools:node="merge"></application>
 </manifest>
