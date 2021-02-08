@@ -22,6 +22,8 @@
 		android:layout_gravity="center_horizontal"
 		android:accessibilityHeading="true" />
 
+
+
      <ToggleButton
         android:id="@+id/geoTrigger"
         android:textOff="@string/start_geo"
@@ -30,6 +32,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
 
+     <ToggleButton
+        android:id="@+id/bgGeoTrigger"
+        android:textOff="@string/start_bg_geo"
+        android:textOn="@string/stop_geo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
 
      <EditText
                 android:id="@+id/etDestinationId"

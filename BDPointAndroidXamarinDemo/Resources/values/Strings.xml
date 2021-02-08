@@ -5,6 +5,7 @@
     <string name="init">Initialize</string>
     <string name="reset">Reset</string>
     <string name="start_geo">Start Geo-Trigger</string>
+    <string name="start_bg_geo">Start BG Geo-Trigger</string>
     <string name="stop_geo">Stop Geo-Trigger</string>
     <string name="start_tempo">Start Tempo</string>
     <string name="stop_tempo">Stop Tempo</string>

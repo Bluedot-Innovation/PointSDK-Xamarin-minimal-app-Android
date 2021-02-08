@@ -30,6 +30,7 @@ namespace BDPointAndroidXamarinDemo
         EditText editTextDestId;
         ToggleButton initButton;
         ToggleButton geoButton;
+        ToggleButton bgGeoButton;
         ToggleButton tempoButton;
         //Enter ProjectId here
         String projectId = "";
@@ -62,9 +63,9 @@ namespace BDPointAndroidXamarinDemo
                 if ((CheckSelfPermission(permissionFine) == (int)Permission.Granted))
                 {
                     if (initButton.Checked)
-                        startInit();
+                        StartInit();
                     else
-                        reset();
+                        Reset();
                 }
                 else
                 {
@@ -77,9 +78,19 @@ namespace BDPointAndroidXamarinDemo
             geoButton.Click += (sender, e) =>
             {
                 if (geoButton.Checked)
-                    startGeoTrigger();
+                    StartGeoTrigger();
                 else
-                    stopGeoTrigger();
+                    StopGeoTrigger();
+
+            };
+
+            bgGeoButton = FindViewById<ToggleButton>(Resource.Id.bgGeoTrigger);
+            bgGeoButton.Click += (sender, e) =>
+            {
+                if (bgGeoButton.Checked)
+                    StartBgGeoTrigger();
+                else
+                    StopGeoTrigger();
 
             };
 
@@ -87,81 +98,86 @@ namespace BDPointAndroidXamarinDemo
             tempoButton.Click += (sender, e) =>
             {
                 if (tempoButton.Checked)
-                    startTempo();
+                    StartTempo();
                 else
-                    stopTempo();
+                    StopTempo();
 
             };
         }
 
-        private void startInit()
+        private void StartInit()
         {
             projectId = editTextProjectId.Text;
             if (!serviceManager.IsBluedotServiceInitialized)
             {
                 serviceManager.Initialize(projectId, this);
-                updateLog("Initializing..");
+                UpdateLog("Initializing..");
             }
             else
             {
-                updateLog("Already Initialized");
+                UpdateLog("Already Initialized");
             }
 
         }
 
-        private void startGeoTrigger()
+        private void StartGeoTrigger()
         {
 
             GeoTriggeringService.Builder()
-               .InvokeNotification(createNotification())
+               .InvokeNotification(CreateNotification())
                .Start(this, this);
         }
 
+        private void StartBgGeoTrigger()
+        {
+            GeoTriggeringService.Builder()
+                .Start(this, this);
+        }
 
-        private void stopGeoTrigger()
+        private void StopGeoTrigger()
         {
             GeoTriggeringService.Stop(this, this);
         }
 
-        private void startTempo()
+        private void StartTempo()
         {
             String destinationId = editTextDestId.Text;
             TempoService.Builder()
                 .InvokeDestinationId(destinationId)
-                .InvokeNotification(createNotification())
+                .InvokeNotification(CreateNotification())
                 .Start(this, this);
         }
 
-        private void stopTempo()
+        private void StopTempo()
         {
             BDError error = TempoService.Stop(this);
             if (error == null)
-                updateLog("Tempo Stop success");
+                UpdateLog("Tempo Stop success");
             else
-                updateLog("Error in stopping Tempo" + error.Reason);
+                UpdateLog("Error in stopping Tempo" + error.Reason);
         }
 
-        private void reset()
+        private void Reset()
         {
             if (serviceManager.IsBluedotServiceInitialized)
             {
                 serviceManager.Reset(this);
-                updateLog("Reseting SDK");
+                UpdateLog("Reseting SDK");
             }
             else
-                updateLog("Already Reset");
+                UpdateLog("Already Reset");
         }
      
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             switch (requestCode)
-            {
+            {   
                 case RequestLocationId:
                     {
                         if (grantResults[0] == Permission.Granted)
                         {
                             //Permission granted
-                            startInit();
+                            StartInit();
                         }
                         else
                         {
@@ -178,7 +194,7 @@ namespace BDPointAndroidXamarinDemo
 
 
 
-       private void updateLog(String s)
+       private void UpdateLog(String s)
         {
             RunOnUiThread(() =>
             {
@@ -187,7 +203,7 @@ namespace BDPointAndroidXamarinDemo
         }
 
 
-        private Notification createNotification()
+        private Notification CreateNotification()
         {
 
             String channelId;
@@ -234,20 +250,20 @@ namespace BDPointAndroidXamarinDemo
             if (error == null)
             {
                 //initButton.Checked = true;
-                updateLog("Initialized Success");
+                UpdateLog("Initialized Success");
                 return;
             }
-            updateLog("Error " + error.Reason);
+            UpdateLog("Error " + error.Reason);
         }
 
         public void OnGeoTriggeringResult(BDError geoTriggerError)
         {
             if (geoTriggerError != null)
             {
-                updateLog("Error in GeoTrigger" + geoTriggerError.Reason);
+                UpdateLog("Error in GeoTrigger" + geoTriggerError.Reason);
                 return;
             }
-            updateLog("GeoTrigger action success");
+            UpdateLog("GeoTrigger action success");
 
         }
 
@@ -255,20 +271,20 @@ namespace BDPointAndroidXamarinDemo
         {
             if (tempoError != null)
             {
-                updateLog("Error in Tempo" + tempoError.Reason);
+                UpdateLog("Error in Tempo" + tempoError.Reason);
                 return;
             }
-            updateLog("Tempo start success");
+            UpdateLog("Tempo start success");
         }
 
         public void OnResetFinished(BDError error)
         {
             if (error != null)
             {
-                updateLog("Error in Reset" + error.Reason);
+                UpdateLog("Error in Reset" + error.Reason);
                 return;
             }
-            updateLog("Reset success");
+            UpdateLog("Reset success");
         }
     }
 }
