@@ -8,6 +8,8 @@
     <string name="stop_geo">Stop Geo-Trigger</string>
     <string name="start_tempo">Start Tempo</string>
     <string name="stop_tempo">Stop Tempo</string>
+    <string name="project_id">Enter your ProjectId here</string>
+    <string name="destination_id">Enter destinationId to start Tempo</string>
     <string name="foreground_notification_title">Location Based Notifications</string>
     <string name="foreground_notification_text">--PLEASE CHANGE-- This app is utilizing the location to trigger alerts in both background and foreground modes when you visit your favourite locations.</string>
 </resources>

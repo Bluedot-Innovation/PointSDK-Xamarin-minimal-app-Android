@@ -20,17 +20,19 @@ namespace BDPointAndroidXamarinDemo
 
         readonly string[] PermissionsLocation =
         {
-            Android.Manifest.Permission.AccessCoarseLocation,
             Android.Manifest.Permission.AccessFineLocation
         };
         const string permissionFine = Android.Manifest.Permission.AccessFineLocation;
-        const string permissionCoarse = Android.Manifest.Permission.AccessCoarseLocation;
         const int RequestLocationId = 0;
 
         TextView textViewStatusLog;
+        EditText editTextProjectId;
+        EditText editTextDestId;
         ToggleButton initButton;
         ToggleButton geoButton;
         ToggleButton tempoButton;
+        //Enter ProjectId here
+        String projectId = "";
 
         ServiceManager serviceManager;
       
@@ -50,12 +52,14 @@ namespace BDPointAndroidXamarinDemo
 
 
             textViewStatusLog = (TextView)FindViewById(Resource.Id.tvStatusLog);
+            editTextProjectId = (EditText)FindViewById(Resource.Id.etProjectId);
+            editTextDestId = (EditText)FindViewById(Resource.Id.etDestinationId);
 
             initButton = FindViewById<ToggleButton>(Resource.Id.init);
             initButton.Click += (sender, e) =>
             {
 
-                if (((CheckSelfPermission(permissionFine) == (int)Permission.Granted)) && (CheckSelfPermission(permissionCoarse) == (int)Permission.Granted))
+                if ((CheckSelfPermission(permissionFine) == (int)Permission.Granted))
                 {
                     if (initButton.Checked)
                         startInit();
@@ -90,6 +94,21 @@ namespace BDPointAndroidXamarinDemo
             };
         }
 
+        private void startInit()
+        {
+            projectId = editTextProjectId.Text;
+            if (!serviceManager.IsBluedotServiceInitialized)
+            {
+                serviceManager.Initialize(projectId, this);
+                updateLog("Initializing..");
+            }
+            else
+            {
+                updateLog("Already Initialized");
+            }
+
+        }
+
         private void startGeoTrigger()
         {
 
@@ -106,8 +125,9 @@ namespace BDPointAndroidXamarinDemo
 
         private void startTempo()
         {
+            String destinationId = editTextDestId.Text;
             TempoService.Builder()
-                .InvokeDestinationId("<DESTINATION_ID>")
+                .InvokeDestinationId(destinationId)
                 .InvokeNotification(createNotification())
                 .Start(this, this);
         }
@@ -131,22 +151,6 @@ namespace BDPointAndroidXamarinDemo
             else
                 updateLog("Already Reset");
         }
-
-        private void startInit()
-        {
-
-            if (!serviceManager.IsBluedotServiceInitialized)
-            {
-                serviceManager.Initialize("<YOUR-PROJECT-ID>", this);
-                updateLog("Initializing..");
-            }
-            else
-            {
-                updateLog("Already Initialized");
-            }
-
-        }
-
      
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
