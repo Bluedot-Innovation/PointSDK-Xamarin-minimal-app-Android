@@ -1,21 +1,95 @@
 ﻿using Android.App;
 using Android.Widget;
+using Android.Content;
 using Android.OS;
-using AU.Com.Bluedot.Application.Model;
-using AU.Com.Bluedot.Point;
 using AU.Com.Bluedot.Point.Net.Engine;
 using System;
 using System.Collections.Generic;
 using Android.Content.PM;
-using Java.Interop;
 /*
 * Xamarin Activity implementing Bluedot Point SDK service interfaces(generated through the binding project) using JNI
 */
 
 namespace BDPointAndroidXamarinDemo
 {
+    public class InitializationStatusListener : Java.Lang.Object, IInitializationResultListener
+    {
+        Context appContext;
+        public InitializationStatusListener(Context context)
+        {
+            appContext = context;
+        }
+        public void OnInitializationFinished(BDError error)
+        {
+            if (error == null) { 
+              Toast.MakeText(appContext, "Initialized Success", ToastLength.Short).Show();
+              return;
+            }
+            Toast.MakeText(appContext, "Error: " + error.Reason, ToastLength.Long).Show();
+        }
+    }
+
+    public class GeoStatusListener : Java.Lang.Object, IGeoTriggeringStatusListener
+    {
+        Context appContext;
+        public GeoStatusListener(Context context)
+        {
+            appContext = context;
+        }
+
+        public void OnGeoTriggeringResult(BDError geoTriggerError)
+        {
+            if (geoTriggerError != null)
+            {
+                Toast.MakeText(appContext, "Error in GeoTrigger: " + geoTriggerError.Reason, ToastLength.Long).Show();
+                return;
+            }
+            Toast.MakeText(appContext, "GeoTrigger action success", ToastLength.Long).Show();
+        }
+    }
+
+    public class TempoStatusListener : Java.Lang.Object, ITempoServiceStatusListener
+    {
+        Context appContext;
+        public TempoStatusListener(Context context)
+        {
+            appContext = context;
+        }
+
+        public void OnTempoResult(BDError tempoError)
+        {
+            if (tempoError != null)
+            {
+                Toast.MakeText(appContext, "Error in Tempo: " + tempoError.Reason, ToastLength.Long).Show();
+                return;
+            }
+            Toast.MakeText(appContext, "Tempo start success", ToastLength.Short).Show();
+        }
+    }
+
+
+    public class ResetStatusListener : Java.Lang.Object, IResetResultReceiver
+    {
+        Context appContext;
+        public ResetStatusListener(Context context)
+        {
+            appContext = context;
+        }
+
+        public void OnResetFinished(BDError error)
+        {
+            if (error != null)
+            {
+                Toast.MakeText(appContext, "Error in Reset: " + error.Reason, ToastLength.Long).Show();
+                return;
+            }
+            Toast.MakeText(appContext, "Reset success", ToastLength.Short).Show();
+        }
+    }
+
+
     [Activity(Label = "BDPointXamarinDemo", MainLauncher = true, Icon = "@mipmap/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
-    public class MainActivity : Activity, IInitializationResultListener, IGeoTriggeringStatusListener, ITempoServiceStatusListener, IResetResultReceiver
+    public class MainActivity : Activity
     {
 
         readonly string[] PermissionsLocation =
@@ -36,7 +110,7 @@ namespace BDPointAndroidXamarinDemo
         String projectId = "";
 
         ServiceManager serviceManager;
-      
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -107,10 +181,13 @@ namespace BDPointAndroidXamarinDemo
 
         private void StartInit()
         {
+
             projectId = editTextProjectId.Text;
             if (!serviceManager.IsBluedotServiceInitialized)
             {
-                serviceManager.Initialize(projectId, this);
+
+               serviceManager.Initialize(projectId: projectId,
+                   initializationResultListener: new InitializationStatusListener(context: this));
                 UpdateLog("Initializing..");
             }
             else
@@ -121,22 +198,24 @@ namespace BDPointAndroidXamarinDemo
         }
 
         private void StartGeoTrigger()
-        {
+        { 
 
             GeoTriggeringService.Builder()
                .InvokeNotification(CreateNotification())
-               .Start(this, this);
+               .Start(context: this, geoTriggeringStatusListener: new GeoStatusListener(context: this));
         }
 
         private void StartBgGeoTrigger()
         {
             GeoTriggeringService.Builder()
-                .Start(this, this);
+                .Start(context: this,
+                geoTriggeringStatusListener: new GeoStatusListener(context: this));
         }
 
         private void StopGeoTrigger()
         {
-            GeoTriggeringService.Stop(this, this);
+            GeoTriggeringService.Stop(context: this,
+                geoTriggeringStatusListener: new GeoStatusListener(context: this));
         }
 
         private void StartTempo()
@@ -145,7 +224,7 @@ namespace BDPointAndroidXamarinDemo
             TempoService.Builder()
                 .InvokeDestinationId(destinationId)
                 .InvokeNotification(CreateNotification())
-                .Start(this, this);
+                .Start(context: this, new TempoStatusListener(context: this));
         }
 
         private void StopTempo()
@@ -161,7 +240,7 @@ namespace BDPointAndroidXamarinDemo
         {
             if (serviceManager.IsBluedotServiceInitialized)
             {
-                serviceManager.Reset(this);
+                serviceManager.Reset(receiver: new ResetStatusListener(context: this));
                 UpdateLog("Reseting SDK");
             }
             else
@@ -202,7 +281,7 @@ namespace BDPointAndroidXamarinDemo
             });
         }
 
-
+        
         private Notification CreateNotification()
         {
 
@@ -245,47 +324,6 @@ namespace BDPointAndroidXamarinDemo
             }
         }
 
-        public void OnInitializationFinished(BDError error)
-        {
-            if (error == null)
-            {
-                //initButton.Checked = true;
-                UpdateLog("Initialized Success");
-                return;
-            }
-            UpdateLog("Error " + error.Reason);
-        }
-
-        public void OnGeoTriggeringResult(BDError geoTriggerError)
-        {
-            if (geoTriggerError != null)
-            {
-                UpdateLog("Error in GeoTrigger" + geoTriggerError.Reason);
-                return;
-            }
-            UpdateLog("GeoTrigger action success");
-
-        }
-
-        public void OnTempoResult(BDError tempoError)
-        {
-            if (tempoError != null)
-            {
-                UpdateLog("Error in Tempo" + tempoError.Reason);
-                return;
-            }
-            UpdateLog("Tempo start success");
-        }
-
-        public void OnResetFinished(BDError error)
-        {
-            if (error != null)
-            {
-                UpdateLog("Error in Reset" + error.Reason);
-                return;
-            }
-            UpdateLog("Reset success");
-        }
     }
 }
 

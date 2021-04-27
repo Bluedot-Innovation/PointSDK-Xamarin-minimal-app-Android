@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="au.com.bluedot.pointsdk" android:versionCode="1" android:versionName="15.3.0">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="au.com.bluedot.pointsdk" android:versionName="15.3.0" android:versionCode="2">
 	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="29" />
 	<!-- General Point SDK functionality -->
 	<uses-permission android:name="android.permission.WAKE_LOCK" />
