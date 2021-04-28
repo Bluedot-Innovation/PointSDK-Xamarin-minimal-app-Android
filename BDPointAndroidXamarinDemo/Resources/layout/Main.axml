@@ -4,13 +4,59 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="10dip">
-    <ToggleButton
-        android:id="@+id/authenticate"
-        android:textOff="Authenticate"
-        android:textOn="Logout"
+     <EditText
+                android:id="@+id/etProjectId"
+                android:textColor="@@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/project_id"
+                android:inputType="text"
+        />
+        
+	<ToggleButton
+		android:id="@+id/init"
+		android:textOff="@string/init"
+		android:textOn="@string/reset"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:accessibilityHeading="true" />
+
+
+
+     <ToggleButton
+        android:id="@+id/geoTrigger"
+        android:textOff="@string/start_geo"
+        android:textOn="@string/stop_geo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal" />
+
+     <ToggleButton
+        android:id="@+id/bgGeoTrigger"
+        android:textOff="@string/start_bg_geo"
+        android:textOn="@string/stop_geo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
+     <EditText
+                android:id="@+id/etDestinationId"
+                android:textColor="@@android:color/black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/destination_id"
+                android:inputType="text"
+        />
+    
+    <ToggleButton
+        android:id="@+id/tempo"
+        android:textOff="@string/start_tempo"
+        android:textOn="@string/stop_tempo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
