@@ -281,7 +281,7 @@
       <HintPath>..\packages\Karamunting.AndroidX.Room.RoomKtx.2.2.5.1\lib\monoandroid90\Karamunting.AndroidX.Room.RoomKtx.dll</HintPath>
     </Reference>
     <Reference Include="BDPointXamarinBinder">
-      <HintPath>..\packages\Bluedot.PointSDK.Android.15.3.3\lib\monoandroid10.0\BDPointXamarinBinder.dll</HintPath>
+      <HintPath>..\packages\Bluedot.PointSDK.Android.15.3.4\lib\monoandroid10.0\BDPointXamarinBinder.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
