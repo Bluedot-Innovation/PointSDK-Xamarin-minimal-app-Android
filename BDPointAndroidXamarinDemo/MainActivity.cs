@@ -189,6 +189,9 @@ namespace BDPointAndroidXamarinDemo
                serviceManager.Initialize(projectId: projectId,
                    initializationResultListener: new InitializationStatusListener(context: this));
                 UpdateLog("Initializing..");
+                UpdateLog("Version:"+ serviceManager.SdkVersion);
+                
+
             }
             else
             {
