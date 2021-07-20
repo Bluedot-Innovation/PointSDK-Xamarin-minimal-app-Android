@@ -1,7 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<resources>
-	<string name="hello">Hello World, Click Me!</string>
-	<string name="app_name">BDPointXamarinDemo</string>
+﻿<resources>
+	<string name="app_name">Bluedot Xamarin Demo</string>
     <string name="init">Initialize</string>
     <string name="reset">Reset</string>
     <string name="start_geo">Start Geo-Trigger</string>

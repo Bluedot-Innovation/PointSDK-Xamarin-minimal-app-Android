@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools" package="au.com.bluedot.pointsdk" android:versionName="15.3.4" android:versionCode="2">
-	<uses-sdk android:minSdkVersion="16" android:targetSdkVersion="29" />
-	<!-- General Point SDK functionality -->
-	<uses-permission android:name="android.permission.WAKE_LOCK" />
-	<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-	<uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-	<!-- Required for Beacons integration -->
-	<uses-permission android:name="android.permission.BLUETOOTH" />
-	<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-	<!-- Required for SessionLogger -->
-	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-	<application tools:node="merge"></application>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.bluedot.point.xamarin_demo" android:versionName="15.3.4.1" android:versionCode="3">
+	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="30" />
+	<application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="true"></application>
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>
