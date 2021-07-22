@@ -1,17 +1,16 @@
 ﻿using Android.App;
-using Android.Widget;
 using Android.Content;
+using Android.Content.PM;
 using Android.OS;
+using Android.Widget;
 using AU.Com.Bluedot.Point.Net.Engine;
 using System;
 using System.Collections.Generic;
-using Android.Content.PM;
-/*
-* Xamarin Activity implementing Bluedot Point SDK service interfaces(generated through the binding project) using JNI
-*/
+
 
 namespace BDPointAndroidXamarinDemo
 {
+
     public class InitializationStatusListener : Java.Lang.Object, IInitializationResultListener
     {
         Context appContext;
@@ -21,9 +20,10 @@ namespace BDPointAndroidXamarinDemo
         }
         public void OnInitializationFinished(BDError error)
         {
-            if (error == null) { 
-              Toast.MakeText(appContext, "Initialized Success", ToastLength.Short).Show();
-              return;
+            if (error == null)
+            {
+                Toast.MakeText(appContext, "Initialized Success", ToastLength.Short).Show();
+                return;
             }
             Toast.MakeText(appContext, "Error: " + error.Reason, ToastLength.Long).Show();
         }
@@ -88,7 +88,7 @@ namespace BDPointAndroidXamarinDemo
     }
 
 
-    [Activity(Label = "BDPointXamarinDemo", MainLauncher = true, Icon = "@mipmap/icon", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
+    [Activity(Label = "BDPointXamarinDemo", MainLauncher = true, Icon = "@mipmap/ic_launcher", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
 
@@ -107,7 +107,7 @@ namespace BDPointAndroidXamarinDemo
         ToggleButton bgGeoButton;
         ToggleButton tempoButton;
         //Enter ProjectId here
-        String projectId = "";
+        string projectId = "";
 
         ServiceManager serviceManager;
 
@@ -186,11 +186,11 @@ namespace BDPointAndroidXamarinDemo
             if (!serviceManager.IsBluedotServiceInitialized)
             {
 
-               serviceManager.Initialize(projectId: projectId,
-                   initializationResultListener: new InitializationStatusListener(context: this));
+                serviceManager.Initialize(projectId: projectId,
+                    initializationResultListener: new InitializationStatusListener(context: this));
                 UpdateLog("Initializing..");
-                UpdateLog("Version:"+ serviceManager.SdkVersion);
-                
+                UpdateLog("Version:" + serviceManager.SdkVersion);
+
 
             }
             else
@@ -201,7 +201,7 @@ namespace BDPointAndroidXamarinDemo
         }
 
         private void StartGeoTrigger()
-        { 
+        {
 
             GeoTriggeringService.Builder()
                .InvokeNotification(CreateNotification())
@@ -223,7 +223,7 @@ namespace BDPointAndroidXamarinDemo
 
         private void StartTempo()
         {
-            String destinationId = editTextDestId.Text;
+            string destinationId = editTextDestId.Text;
             TempoService.Builder()
                 .InvokeDestinationId(destinationId)
                 .InvokeNotification(CreateNotification())
@@ -249,11 +249,11 @@ namespace BDPointAndroidXamarinDemo
             else
                 UpdateLog("Already Reset");
         }
-     
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             switch (requestCode)
-            {   
+            {
                 case RequestLocationId:
                     {
                         if (grantResults[0] == Permission.Granted)
@@ -276,7 +276,7 @@ namespace BDPointAndroidXamarinDemo
 
 
 
-       private void UpdateLog(String s)
+        private void UpdateLog(String s)
         {
             RunOnUiThread(() =>
             {
@@ -284,7 +284,7 @@ namespace BDPointAndroidXamarinDemo
             });
         }
 
-        
+
         private Notification CreateNotification()
         {
 
@@ -308,7 +308,7 @@ namespace BDPointAndroidXamarinDemo
                     .SetStyle(new Notification.BigTextStyle().BigText(GetString(Resource.String.foreground_notification_text)))
                         .SetOngoing(true)
                         .SetCategory(Notification.CategoryService)
-                        .SetSmallIcon(Resource.Mipmap.Icon);
+                        .SetSmallIcon(Resource.Mipmap.ic_launcher);
 
                 return notification.Build();
             }
@@ -321,7 +321,7 @@ namespace BDPointAndroidXamarinDemo
                     .SetStyle(new Notification.BigTextStyle().BigText(GetString(Resource.String.foreground_notification_text)))
                         .SetOngoing(true)
                         .SetCategory(Notification.CategoryService)
-                        .SetSmallIcon(Resource.Mipmap.Icon);
+                        .SetSmallIcon(Resource.Mipmap.ic_launcher);
 
                 return notification.Build();
             }
@@ -329,4 +329,3 @@ namespace BDPointAndroidXamarinDemo
 
     }
 }
-
