@@ -12,17 +12,33 @@ namespace BDPointAndroidXamarinDemo
     {
         public override void OnZoneEntryEvent(ZoneEntryEvent entryEvent, Context context)
         {
-            Toast.MakeText(context, "Received OnZoneEntryEvent "+entryEvent.ZoneInfo.ZoneName, ToastLength.Short).Show();
+            ZoneInfo zoneInfo = entryEvent.ZoneInfo;
+            string zoneData = "";
+            foreach(KeyValuePair<string, string> entry in zoneInfo.CustomData)
+            {
+                zoneData += $"{entry.Key}: {entry.Value}\n";
+            };
+
+            string entryText = $"Entered {zoneInfo.ZoneName}\n{zoneData}";
+            Toast.MakeText(context, entryText, ToastLength.Short).Show();
         }
 
         public override void OnZoneExitEvent(ZoneExitEvent exitEvent, Context context)
         {
-            Toast.MakeText(context, "Received OnZoneExitEvent", ToastLength.Short).Show();
+            ZoneInfo zoneInfo = exitEvent.ZoneInfo;
+            string zoneData = "";
+            foreach (KeyValuePair<string, string> entry in zoneInfo.CustomData)
+            {
+                zoneData += $"{entry.Key}: {entry.Value}\n";
+            };
+
+            string exitText = $"Left {zoneInfo.ZoneName}\n{zoneData}";
+            Toast.MakeText(context, exitText, ToastLength.Short).Show();
         }
 
         public override void OnZoneInfoUpdate(IList<ZoneInfo> zones, Context context)
         {
-            Toast.MakeText(context, "Received OnZoneInfoUpdate", ToastLength.Short).Show();
+            Toast.MakeText(context, "Received OnZoneInfoUpdate", ToastLength.Short).Show(); 
         }
     }
 
