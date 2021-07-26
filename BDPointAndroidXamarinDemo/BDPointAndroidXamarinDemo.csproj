@@ -107,7 +107,7 @@
       <Version>2.5.0.1</Version>
     </PackageReference>
     <PackageReference Include="Bluedot.PointSDK.Android">
-      <Version>15.3.4.1</Version>
+      <Version>15.3.4.2</Version>
     </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
