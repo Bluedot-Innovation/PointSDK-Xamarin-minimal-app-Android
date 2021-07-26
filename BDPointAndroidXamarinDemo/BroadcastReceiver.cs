@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Widget;
 using AU.Com.Bluedot.Point.Net.Engine;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace BDPointAndroidXamarinDemo
 {
@@ -13,12 +15,9 @@ namespace BDPointAndroidXamarinDemo
         public override void OnZoneEntryEvent(ZoneEntryEvent entryEvent, Context context)
         {
             ZoneInfo zoneInfo = entryEvent.ZoneInfo;
-            string zoneData = "";
-            foreach(KeyValuePair<string, string> entry in zoneInfo.CustomData)
-            {
-                zoneData += $"{entry.Key}: {entry.Value}\n";
-            };
-
+            string zoneData = zoneInfo.CustomData.Aggregate(new StringBuilder(),
+                (sb, entry) => sb.Append($"{entry.Key}: {entry.Value}\n"),
+                sb => sb.ToString());
             string entryText = $"Entered {zoneInfo.ZoneName}\n{zoneData}";
             Toast.MakeText(context, entryText, ToastLength.Short).Show();
         }
@@ -26,12 +25,9 @@ namespace BDPointAndroidXamarinDemo
         public override void OnZoneExitEvent(ZoneExitEvent exitEvent, Context context)
         {
             ZoneInfo zoneInfo = exitEvent.ZoneInfo;
-            string zoneData = "";
-            foreach (KeyValuePair<string, string> entry in zoneInfo.CustomData)
-            {
-                zoneData += $"{entry.Key}: {entry.Value}\n";
-            };
-
+            string zoneData = zoneInfo.CustomData.Aggregate(new StringBuilder(),
+                (sb, entry) => sb.Append($"{entry.Key}: {entry.Value}\n"),
+                sb => sb.ToString());
             string exitText = $"Left {zoneInfo.ZoneName}\n{zoneData}";
             Toast.MakeText(context, exitText, ToastLength.Short).Show();
         }
