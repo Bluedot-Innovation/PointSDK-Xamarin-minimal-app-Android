@@ -1,75 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dip">
-     <EditText
-                android:id="@+id/etProjectId"
-                android:textColor="@@android:color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/project_id"
-                android:inputType="text"
-        />
-        
-	<ToggleButton
-		android:id="@+id/init"
-		android:textOff="@string/init"
-		android:textOn="@string/reset"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_gravity="center_horizontal"
-		android:accessibilityHeading="true" />
+    android:padding="@dimen/margin">
+
+  <EditText
+      android:id="@+id/etProjectId"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/margin"
+      android:hint="@string/project_id"
+      android:inputType="text"
+      android:textColor="@@android:color/black"
+      app:layout_constraintBottom_toTopOf="@+id/init"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <ToggleButton
+      android:id="@+id/init"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="@dimen/margin"
+      android:accessibilityHeading="true"
+      android:textOff="@string/init"
+      android:textOn="@string/reset"
+      app:layout_constraintTop_toBottomOf="@id/etProjectId"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
 
 
+  <ToggleButton
+      android:id="@+id/geoTrigger"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="@dimen/margin"
+      android:textOff="@string/start_geo"
+      android:textOn="@string/stop_geo"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/init" />
 
-     <ToggleButton
-        android:id="@+id/geoTrigger"
-        android:textOff="@string/start_geo"
-        android:textOn="@string/stop_geo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+  <ToggleButton
+      android:id="@+id/bgGeoTrigger"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="@dimen/margin"
+      android:textOff="@string/start_bg_geo"
+      android:textOn="@string/stop_geo"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/geoTrigger" />
 
-     <ToggleButton
-        android:id="@+id/bgGeoTrigger"
-        android:textOff="@string/start_bg_geo"
-        android:textOn="@string/stop_geo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+  <EditText
+      android:id="@+id/etDestinationId"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/margin"
+      android:hint="@string/destination_id"
+      android:inputType="text"
+      android:textColor="@@android:color/black"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/bgGeoTrigger" />
 
-     <EditText
-                android:id="@+id/etDestinationId"
-                android:textColor="@@android:color/black"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/destination_id"
-                android:inputType="text"
-        />
-    
-    <ToggleButton
-        android:id="@+id/tempo"
-        android:textOff="@string/start_tempo"
-        android:textOn="@string/stop_tempo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" />
+  <ToggleButton
+      android:id="@+id/tempo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginTop="@dimen/margin"
+      android:textOff="@string/start_tempo"
+      android:textOn="@string/stop_tempo"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/etDestinationId" />
 
-    <ScrollView
+  <ScrollView
+      android:id="@+id/scrollView2"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="@dimen/abc_action_bar_content_inset_material"
+      android:layout_marginBottom="@dimen/margin"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tempo"
+      app:layout_constraintBottom_toTopOf="@id/versionLabels">
+
+    <LinearLayout
+        android:id="@+id/log_panel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/log_panel">
-            <TextView
-                android:id="@+id/tvStatusLog"
-                android:textColor="@@android:color/black"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+			<TextView
+				android:id="@+id/tvStatusLog"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:textColor="@@android:color/black" />
+    </LinearLayout>
+  </ScrollView>
+    <LinearLayout
+        android:id="@+id/versionLabels"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+  <TextView
+      android:id="@+id/tvAppVersion"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/bluedot_app"
+      android:textColor="@@android:color/black"
+      android:textAlignment="center"
+      />
+
+    <TextView
+      android:id="@+id/tvSDKVersion"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/bluedot_sdk"
+      android:textColor="@@android:color/black"
+      android:textAlignment="center"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

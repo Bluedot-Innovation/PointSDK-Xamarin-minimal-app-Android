@@ -11,4 +11,6 @@
     <string name="destination_id">Enter destinationId to start Tempo</string>
     <string name="foreground_notification_title">Location Based Notifications</string>
     <string name="foreground_notification_text">--PLEASE CHANGE-- This app is utilizing the location to trigger alerts in both background and foreground modes when you visit your favourite locations.</string>
+    <string name="bluedot_app">App: v%1$s</string>
+    <string name="bluedot_sdk">SDK: v%1$s</string>
 </resources>
