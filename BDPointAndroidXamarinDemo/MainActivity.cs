@@ -87,10 +87,10 @@ namespace BDPointAndroidXamarinDemo
         }
     }
 
-
     [Activity(Label = "BDPointXamarinDemo", MainLauncher = true, Icon = "@mipmap/ic_launcher", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
+        public static MainActivity Instance;
 
         readonly string[] PermissionsLocation =
         {
@@ -100,6 +100,8 @@ namespace BDPointAndroidXamarinDemo
         const int RequestLocationId = 0;
 
         TextView textViewStatusLog;
+        TextView appVersionTextView;
+        TextView sdkVersionTextView;
         EditText editTextProjectId;
         EditText editTextDestId;
         ToggleButton initButton;
@@ -114,6 +116,7 @@ namespace BDPointAndroidXamarinDemo
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+            Instance = this;
 
             serviceManager = ServiceManager.GetInstance(this);
 
@@ -127,9 +130,17 @@ namespace BDPointAndroidXamarinDemo
 
 
             textViewStatusLog = (TextView)FindViewById(Resource.Id.tvStatusLog);
+            appVersionTextView = (TextView)FindViewById(Resource.Id.tvAppVersion);
+            sdkVersionTextView = (TextView)FindViewById(Resource.Id.tvSDKVersion);
             editTextProjectId = (EditText)FindViewById(Resource.Id.etProjectId);
             editTextDestId = (EditText)FindViewById(Resource.Id.etDestinationId);
 
+
+            String appVersion = Application.Context.ApplicationContext.PackageManager.GetPackageInfo(Application.Context.ApplicationContext.PackageName, 0).VersionName;
+            String sdkVersion = serviceManager.SdkVersion;
+
+            appVersionTextView.Text = GetString(Resource.String.bluedot_app, appVersion);
+            sdkVersionTextView.Text = GetString(Resource.String.bluedot_sdk, sdkVersion);
             initButton = FindViewById<ToggleButton>(Resource.Id.init);
             initButton.Click += (sender, e) =>
             {
@@ -171,10 +182,24 @@ namespace BDPointAndroidXamarinDemo
             tempoButton = FindViewById<ToggleButton>(Resource.Id.tempo);
             tempoButton.Click += (sender, e) =>
             {
-                if (tempoButton.Checked)
-                    StartTempo();
+                string destinationId = editTextDestId.Text;
+                if (destinationId != null && destinationId != "")
+                {
+                    if (tempoButton.Checked)
+                    {
+                        StartTempo(destinationId);
+                    }
+                    else
+                    {
+                        StopTempo();
+                    }
+                }
                 else
-                    StopTempo();
+                {
+                    // Reset tempo button if failed to start tempo
+                    resetTempoButton();
+                    Toast.MakeText(this, "Error: Invalid destination Id", ToastLength.Short).Show();
+                }
 
             };
         }
@@ -183,29 +208,43 @@ namespace BDPointAndroidXamarinDemo
         {
 
             projectId = editTextProjectId.Text;
-            if (!serviceManager.IsBluedotServiceInitialized)
+            if (projectId != null && projectId != "")
             {
-
-                serviceManager.Initialize(projectId: projectId,
-                    initializationResultListener: new InitializationStatusListener(context: this));
-                UpdateLog("Initializing..");
-                UpdateLog("Version:" + serviceManager.SdkVersion);
-
-
+                if (!serviceManager.IsBluedotServiceInitialized)
+                {
+                    serviceManager.Initialize(projectId: projectId,
+                        initializationResultListener: new InitializationStatusListener(context: this));
+                    UpdateLog("Initializing..");
+                    UpdateLog("Version:" + serviceManager.SdkVersion);
+                }
+                else
+                {
+                    UpdateLog("Already Initialized");
+                }
             }
             else
             {
-                UpdateLog("Already Initialized");
+                RunOnUiThread(() =>
+                {
+                    initButton.Checked = false;
+                });
+                UpdateLog("Invalid project Id.");
+                Toast.MakeText(this, "Error: Invalid projectId", ToastLength.Long).Show();
             }
 
         }
 
         private void StartGeoTrigger()
         {
-
             GeoTriggeringService.Builder()
                .InvokeNotification(CreateNotification())
                .Start(context: this, geoTriggeringStatusListener: new GeoStatusListener(context: this));
+            UpdateLog("Started Geo Triggering");
+            RunOnUiThread(() =>
+            {
+                bgGeoButton.Checked = true;
+                bgGeoButton.Visibility = Android.Views.ViewStates.Gone;
+            });
         }
 
         private void StartBgGeoTrigger()
@@ -213,21 +252,51 @@ namespace BDPointAndroidXamarinDemo
             GeoTriggeringService.Builder()
                 .Start(context: this,
                 geoTriggeringStatusListener: new GeoStatusListener(context: this));
+            UpdateLog("Started Background Geo Triggering");
+            RunOnUiThread(() =>
+            {
+                geoButton.Checked = true;
+                geoButton.Visibility = Android.Views.ViewStates.Gone;
+            });
+
         }
 
         private void StopGeoTrigger()
         {
             GeoTriggeringService.Stop(context: this,
                 geoTriggeringStatusListener: new GeoStatusListener(context: this));
+            UpdateLog("Stopped Geo Triggering");
+            updateGeoButtons(false);
         }
 
-        private void StartTempo()
+        private void updateGeoButtons(bool value)
         {
-            string destinationId = editTextDestId.Text;
+            RunOnUiThread(() =>
+            {
+                geoButton.Checked = value;
+                bgGeoButton.Checked = value;
+                if (!value)
+                {
+                    geoButton.Visibility = Android.Views.ViewStates.Visible;
+                    bgGeoButton.Visibility = Android.Views.ViewStates.Visible;
+                }
+            });
+        }
+
+        private void StartTempo(string destinationId)
+        {
+            var metadata = new Dictionary<string, string>();
+            var orderId = RandomString(6);
+            metadata.Add("hs_orderId", orderId);
+            metadata.Add("hs_customerName", "Testing");
+            serviceManager.SetCustomEventMetaData(metadata);
+
             TempoService.Builder()
                 .InvokeDestinationId(destinationId)
                 .InvokeNotification(CreateNotification())
                 .Start(context: this, new TempoStatusListener(context: this));
+            UpdateLog("Tempo Start with Id:" + orderId);
+
         }
 
         private void StopTempo()
@@ -237,6 +306,14 @@ namespace BDPointAndroidXamarinDemo
                 UpdateLog("Tempo Stop success");
             else
                 UpdateLog("Error in stopping Tempo" + error.Reason);
+        }
+
+        public void resetTempoButton()
+        {
+            RunOnUiThread(() =>
+            {
+                tempoButton.Checked = false;
+            });
         }
 
         private void Reset()
@@ -274,14 +351,27 @@ namespace BDPointAndroidXamarinDemo
 
         }
 
-
-
-        private void UpdateLog(String s)
+        public void UpdateLog(String s)
         {
             RunOnUiThread(() =>
             {
                 textViewStatusLog.Append(s + "\n");
             });
+        }
+
+        private static Random random = new Random();
+
+        private static String RandomString(int length)
+        {
+            const string chars = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890";
+            var stringChars = new char[length];
+            var random = new Random();
+
+            for (int i = 0; i < stringChars.Length; i++)
+            {
+                stringChars[i] = chars[random.Next(chars.Length)];
+            }
+            return new String(stringChars);
         }
 
 
