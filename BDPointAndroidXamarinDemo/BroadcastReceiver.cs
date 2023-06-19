@@ -2,9 +2,12 @@
 using Android.Content;
 using Android.Widget;
 using AU.Com.Bluedot.Point.Net.Engine;
+using AU.Com.Bluedot.Point.Net.Engine.Event;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
+using Context = Android.Content.Context;
 
 namespace BDPointAndroidXamarinDemo
 {
@@ -12,31 +15,25 @@ namespace BDPointAndroidXamarinDemo
     [IntentFilter(new[] { "io.bluedot.point.GEOTRIGGER" })]
     public class AppGeoTriggerReceiver : GeoTriggeringEventReceiver
     {
-        public override void OnZoneEntryEvent(ZoneEntryEvent entryEvent, Context context)
+        public override void OnZoneEntryEvent(GeoTriggerEvent entryEvent, Context context)
         {
-            ZoneInfo zoneInfo = entryEvent.ZoneInfo;
-            string zoneData = zoneInfo.CustomData.Aggregate(new StringBuilder(),
-                (sb, entry) => sb.Append($"{entry.Key}: {entry.Value}\n"),
-                sb => sb.ToString());
-            string entryText = $"Entered {zoneInfo.ZoneName}\n{zoneData}";
+            string entryText = $"Entered zone: {entryEvent.ZoneInfo.Name}\n{entryEvent.ToJson()}";
             Toast.MakeText(context, entryText, ToastLength.Short).Show();
-            MainActivity.Instance.UpdateLog($"Entered Zone: {zoneInfo.ZoneName}");
+            MainActivity.Instance.UpdateLog(entryText);
         }
 
-        public override void OnZoneExitEvent(ZoneExitEvent exitEvent, Context context)
+        public override void OnZoneExitEvent(GeoTriggerEvent exitEvent, Context context)
         {
-            ZoneInfo zoneInfo = exitEvent.ZoneInfo;
-            string zoneData = zoneInfo.CustomData.Aggregate(new StringBuilder(),
-                (sb, entry) => sb.Append($"{entry.Key}: {entry.Value}\n"),
-                sb => sb.ToString());
-            string exitText = $"Left {zoneInfo.ZoneName}\n{zoneData}";
+            string exitText = $"Exited zone: {exitEvent.ZoneInfo.Name}\n{exitEvent.ToJson()}";
             Toast.MakeText(context, exitText, ToastLength.Short).Show();
-            MainActivity.Instance.UpdateLog($"Exited Zone: {zoneInfo.ZoneName}");
+            MainActivity.Instance.UpdateLog(exitText);
+
         }
 
-        public override void OnZoneInfoUpdate(IList<ZoneInfo> zones, Context context)
+        public override void OnZoneInfoUpdate(Context context)
         {
-            MainActivity.Instance.UpdateLog("OnZoneInfoUpdate");
+            IList<ZoneInfo> zonesInfos = ServiceManager.GetInstance(context).ZonesAndFences;
+            MainActivity.Instance.UpdateLog("OnZoneInfoUpdate: " + (zonesInfos != null ? zonesInfos.ToString() : "empty"));
             Toast.MakeText(context, "Received OnZoneInfoUpdate", ToastLength.Short).Show();
         }
     }
@@ -45,6 +42,12 @@ namespace BDPointAndroidXamarinDemo
     [IntentFilter(new[] { "io.bluedot.point.TEMPO" })]
     public class AppTempoReceiver : TempoTrackingReceiver
     {
+        public override void OnTempoTrackingUpdate(TempoTrackingUpdate tempoTrackingUpdate, Context context)
+        {
+            MainActivity.Instance.UpdateLog("tempoTrackingUpdate: " + tempoTrackingUpdate.ToJson());
+            Toast.MakeText(context, "Received tempoTrackingUpdate " + tempoTrackingUpdate.ToJson(), ToastLength.Short).Show();
+        }
+
         public override void TempoStoppedWithError(BDError error, Context context)
         {
             MainActivity.Instance.resetTempoButton();
