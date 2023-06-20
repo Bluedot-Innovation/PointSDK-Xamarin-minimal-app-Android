@@ -135,7 +135,6 @@ namespace BDPointAndroidXamarinDemo
             editTextProjectId = (EditText)FindViewById(Resource.Id.etProjectId);
             editTextDestId = (EditText)FindViewById(Resource.Id.etDestinationId);
 
-
             String appVersion = Application.Context.ApplicationContext.PackageManager.GetPackageInfo(Application.Context.ApplicationContext.PackageName, 0).VersionName;
             String sdkVersion = serviceManager.SdkVersion;
 
@@ -149,7 +148,6 @@ namespace BDPointAndroidXamarinDemo
                 {
                     if (initButton.Checked) {
                         StartInit();
-                        StartTempo("");
                     } else {
                         Reset();
                     }
@@ -232,7 +230,6 @@ namespace BDPointAndroidXamarinDemo
                 UpdateLog("Invalid project Id.");
                 Toast.MakeText(this, "Error: Invalid projectId", ToastLength.Long).Show();
             }
-
         }
 
         private void StartGeoTrigger()

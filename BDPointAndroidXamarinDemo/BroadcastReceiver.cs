@@ -33,7 +33,12 @@ namespace BDPointAndroidXamarinDemo
         public override void OnZoneInfoUpdate(Context context)
         {
             IList<ZoneInfo> zonesInfos = ServiceManager.GetInstance(context).ZonesAndFences;
-            MainActivity.Instance.UpdateLog("OnZoneInfoUpdate: " + (zonesInfos != null ? zonesInfos.ToString() : "empty"));
+            if (zonesInfos != null)
+            {
+                string allZoneInfos = "";
+                zonesInfos.ToList().ForEach(eachZoneInfo => allZoneInfos += eachZoneInfo.ToString() + "\n");
+                MainActivity.Instance.UpdateLog("OnZoneInfoUpdate: " + allZoneInfos);
+            }
             Toast.MakeText(context, "Received OnZoneInfoUpdate", ToastLength.Short).Show();
         }
     }
