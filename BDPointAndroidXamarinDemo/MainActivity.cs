@@ -124,7 +124,7 @@ namespace BDPointAndroidXamarinDemo
             IDictionary<string, string> keyValuePairs = new Dictionary<string, string>();
             keyValuePairs.Add("uuid", "1234");
             keyValuePairs.Add("size", "34");
-            serviceManager.SetCustomEventMetaData(keyValuePairs);
+            serviceManager.CustomEventMetaData = keyValuePairs;
 
             SetContentView(Resource.Layout.Main);
 
@@ -134,7 +134,6 @@ namespace BDPointAndroidXamarinDemo
             sdkVersionTextView = (TextView)FindViewById(Resource.Id.tvSDKVersion);
             editTextProjectId = (EditText)FindViewById(Resource.Id.etProjectId);
             editTextDestId = (EditText)FindViewById(Resource.Id.etDestinationId);
-
 
             String appVersion = Application.Context.ApplicationContext.PackageManager.GetPackageInfo(Application.Context.ApplicationContext.PackageName, 0).VersionName;
             String sdkVersion = serviceManager.SdkVersion;
@@ -147,10 +146,11 @@ namespace BDPointAndroidXamarinDemo
 
                 if ((CheckSelfPermission(permissionFine) == (int)Permission.Granted))
                 {
-                    if (initButton.Checked)
+                    if (initButton.Checked) {
                         StartInit();
-                    else
+                    } else {
                         Reset();
+                    }
                 }
                 else
                 {
@@ -206,7 +206,6 @@ namespace BDPointAndroidXamarinDemo
 
         private void StartInit()
         {
-
             projectId = editTextProjectId.Text;
             if (projectId != null && projectId != "")
             {
@@ -231,7 +230,6 @@ namespace BDPointAndroidXamarinDemo
                 UpdateLog("Invalid project Id.");
                 Toast.MakeText(this, "Error: Invalid projectId", ToastLength.Long).Show();
             }
-
         }
 
         private void StartGeoTrigger()
@@ -289,7 +287,7 @@ namespace BDPointAndroidXamarinDemo
             var orderId = RandomString(6);
             metadata.Add("hs_orderId", orderId);
             metadata.Add("hs_customerName", "Testing");
-            serviceManager.SetCustomEventMetaData(metadata);
+            serviceManager.CustomEventMetaData = metadata;
 
             TempoService.Builder()
                 .InvokeDestinationId(destinationId)
